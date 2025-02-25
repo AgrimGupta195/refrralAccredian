@@ -8,18 +8,8 @@ export const validateReferralForm = [
   body("phone").isMobilePhone().withMessage("Invalid phone number"),
 ];
 
-export const generateReferralCode = async () => {
-  let referralCode;
-  let isUnique = false;
-  while (!isUnique) {
-    referralCode = Math.random().toString(36).substring(2, 10).toUpperCase();
-    const existingReferral = await Referral.findOne({ referralCode });
-
-    if (!existingReferral) {
-      isUnique = true;
-    }
-  }
-  return referralCode;
+export const generateReferralCode = () => {
+  return Math.random().toString(36).substring(2, 10).toUpperCase();
 };
 
 export const submitReferral = async (req, res) => {
@@ -30,24 +20,19 @@ export const submitReferral = async (req, res) => {
 
   try {
     const { name, email, phone } = req.body;
-    const referralCode = await generateReferralCode();
-
     const existingReferral = await Referral.findOne({ email });
     if (existingReferral) {
       return res.status(400).json({ error: "This email has already been referred." });
     }
-
+    const referralCode = generateReferralCode();
     const referral = new Referral({ name, email, phone, referralCode });
     await referral.save();
-
     const subject = "Hey! You got a Referral";
     const text = `Hello ${name}, Let's Start`;
-
     await sendReferralEmail(email, subject, text, referralCode);
-
-    res.status(201).json({ message: "Referral submitted successfully, email sent", referral });
+    res.status(201).json({ message: "Referral submitted successfully. Email sent!", referral });
   } catch (error) {
     console.error("Error submitting referral:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Error. Please try again later." });
   }
 };
