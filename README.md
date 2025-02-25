@@ -1,5 +1,9 @@
-﻿# refrralAccredian
+# refrralAccredian
 
+## Environment Variables
+Add the following variables in your `.env` file:
+
+```env
 DATABASE_URL=""
 PORT=<PORT>
 CLIENT_ID=<CLIENT_ID>
@@ -9,4 +13,3 @@ REFRESH_TOKEN=<REFRESH_TOKEN>
 GMAIL_USER=<MAIL>
 NODE_ENV=<>
 MONGO_URI=<MONGODB_URI>
-
