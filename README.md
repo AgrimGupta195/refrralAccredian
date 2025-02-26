@@ -14,5 +14,5 @@ GMAIL_USER=<MAIL>
 NODE_ENV=<>
 MONGO_URI=<MONGODB_URI>
 ```
-[Watch Demo](https://github.com/AgrimGupta195/refrralAccredian/blob/main/demo.mp4)
+[Watch Demo](https://drive.google.com/file/d/1LI-2kgI-t31pG8V_KDbDK7tq3Tn46BEr/view?usp=sharing)
 
